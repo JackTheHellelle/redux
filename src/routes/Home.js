@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
-import { actionCreators } from "../store";
+import { addToDo } from "../store";
 import ToDo from "../components/ToDo";
 
 function Home({ toDos, addToDo }) {
-  console.log(toDos);
   const [text, setText] = useState("");
   function onChange(e) {
     setText(e.target.value);
   }
   function onSubmit(e) {
     e.preventDefault();
+    if (text.trim() === "") return;
     addToDo(text);
     setText("");
   }
@@ -34,9 +34,9 @@ function mapStateToProps(state) {
   return { toDos: state };
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
+function mapDispatchToProps(dispatch) {
   return {
-    addToDo: (text) => dispatch(actionCreators.addToDo(text)),
+    addToDo: (text) => dispatch(addToDo(text)),
   };
 }
 
